@@ -211,4 +211,43 @@ router.put(
 	}
 );
 
+// @route   PUT api/profile/experience/:exp_id
+// @desc    Update user profile experience
+// @access  Private
+router.put("/experience/:exp_id", auth, async (req, res) => {
+	const { title, company, location, from, to, current, description } = req.body;
+	let updateExp = {};
+	if (title) req.body.title = title;
+	if (company) req.body.company = company;
+	if (location) req.body.location = location;
+	if (from) req.body.from = from;
+	if (to) req.body.to = to;
+	if (current) req.body.current = current;
+	if (description) req.body.description = description;
+	try {
+		let profile = await Profile.findOne({ user: req.user.id }).findOneAndUpdate(
+			{
+				experience: { $elemMatch: { _id: req.params.exp_id } },
+			},
+			{
+				$set: {
+					"experience.$.current": req.body.current,
+					"experience.$.title": req.body.title,
+					"experience.$.company": req.body.company,
+					"experience.$.location": req.body.location,
+					"experience.$.from": req.body.from,
+					"experience.$.to": req.body.to,
+					"experience.$.description": req.body.description,
+				},
+			},
+			{ new: true, upsert: true }
+		);
+
+		res.json(profile);
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({ msg: "Server error" });
+	}
+});
+
 module.exports = router;
