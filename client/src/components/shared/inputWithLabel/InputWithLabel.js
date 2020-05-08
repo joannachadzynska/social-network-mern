@@ -1,5 +1,4 @@
 import React from "react";
-import Register from "../../auth/+Register/Register";
 
 const InputWithLabel = ({ children, onInputChange, value, ...props }) => {
 	const { type } = props;
