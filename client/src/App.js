@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { Navbar, Landing, Alert } from "./components/layout";
 import { Login, Register } from "./components/auth";
 import { loadUser } from "./redux/actions/auth.actions";
@@ -14,6 +13,7 @@ const App = () => {
 		setAuthToken(localStorage.token);
 		store.dispatch(loadUser());
 	}, []);
+
 	return (
 		<Provider store={store}>
 			<Router>

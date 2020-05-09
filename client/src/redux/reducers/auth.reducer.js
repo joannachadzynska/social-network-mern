@@ -10,7 +10,7 @@ const initState = {
 const auth = (state = initState, { type, payload }) => {
 	switch (type) {
 		case AUTH_ACTION_TYPES.REGISTER_SUCCESS:
-			// localStorage.setItem("token", payload.token);
+		case AUTH_ACTION_TYPES.LOGIN_SUCCESS:
 			return {
 				...state,
 				...payload,
@@ -20,7 +20,7 @@ const auth = (state = initState, { type, payload }) => {
 
 		case AUTH_ACTION_TYPES.REGISTER_FAILURE:
 		case AUTH_ACTION_TYPES.AUTH_ERROR:
-			// localStorage.removeItem("token");
+		case AUTH_ACTION_TYPES.LOGIN_FAILURE:
 			return {
 				...state,
 				token: null,

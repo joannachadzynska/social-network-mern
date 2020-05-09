@@ -8,4 +8,6 @@ export const AUTH_ACTION_TYPES = {
 	REGISTER_FAILURE: "[auth register] REGISTER_FAILURE",
 	USER_LOADED: "[auth user] USER_LOADED",
 	AUTH_ERROR: "[auth user] AUTH_ERROR",
+	LOGIN_SUCCESS: "[auth login] LOGIN_SUCCESS",
+	LOGIN_FAILURE: "[auth login] LOGIN_FAILURE",
 };

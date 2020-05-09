@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
+import { login } from "../../../redux/actions/auth.actions";
 import { InputWithLabel } from "../../shared";
 
 const Login = () => {
+	const dispatch = useDispatch();
+
+	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
 	const [formData, setFormData] = useState({
 		email: "",
 		password: "",
@@ -18,8 +24,13 @@ const Login = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(formData);
+		dispatch(login(email, password));
 	};
+
+	// Redirect if logged in
+	if (isAuthenticated) {
+		return <Redirect to='/dashboard'>dashboard</Redirect>;
+	}
 
 	return (
 		<>
