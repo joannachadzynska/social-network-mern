@@ -25,7 +25,7 @@ const Navbar = () => {
 	const guestLinks = (
 		<ul>
 			<li>
-				<NavLink to='!#'>Developers</NavLink>
+				<NavLink to='#!'>Developers</NavLink>
 			</li>
 			<li>
 				<NavLink to='/register'>Register</NavLink>

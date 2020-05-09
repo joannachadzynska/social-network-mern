@@ -1,11 +1,17 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Navbar, Landing, Alert } from "./components/layout";
-import { Login, Register } from "./components/auth";
+
+// Redux
 import { loadUser } from "./redux/actions/auth.actions";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import setAuthToken from "./utils/setAuthToken";
+
+// Components
+import { Navbar, Landing, Alert } from "./components/layout";
+import { Login, Register } from "./components/auth";
+import Dashboard from "./components/dashboard";
+import PrivateRoute from "./components/routing";
 import "./App.css";
 
 const App = () => {
@@ -24,12 +30,11 @@ const App = () => {
 				<section className='container'>
 					<Alert />
 					<Switch>
-						<Route exact path='/register'>
-							<Register />
-						</Route>
-						<Route exact path='/login'>
-							<Login />
-						</Route>
+						<Route exact path='/register' component={Register} />
+
+						<Route exact path='/login' component={Login} />
+
+						<PrivateRoute exact path='/dashboard' component={Dashboard} />
 					</Switch>
 				</section>
 			</Router>
