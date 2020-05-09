@@ -11,5 +11,10 @@ export const AUTH_ACTION_TYPES = {
 	LOGIN_SUCCESS: "[auth login] LOGIN_SUCCESS",
 	LOGIN_FAILURE: "[auth login] LOGIN_FAILURE",
 	LOGOUT: "[auth logout] LOGOUT",
-	CLEAR_PROFILE: "[auth logout] CLEAR_PROFILE",
+};
+
+export const PROFILE_ACTION_TYPES = {
+	CLEAR_PROFILE: "[profile] CLEAR_PROFILE",
+	GET_PROFILE: "[profile get] GET_PROFILE",
+	PROFILE_ERROR: "[profile get] PROFILE_ERROR",
 };
