@@ -72,3 +72,8 @@ export const login = (email, password) => async (dispatch) => {
 		dispatch({ type: AUTH_ACTION_TYPES.LOGIN_FAILURE });
 	}
 };
+
+// Logout user
+export const logout = () => ({
+	type: AUTH_ACTION_TYPES.LOGOUT,
+});

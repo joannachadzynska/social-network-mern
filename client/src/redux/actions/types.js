@@ -10,4 +10,6 @@ export const AUTH_ACTION_TYPES = {
 	AUTH_ERROR: "[auth user] AUTH_ERROR",
 	LOGIN_SUCCESS: "[auth login] LOGIN_SUCCESS",
 	LOGIN_FAILURE: "[auth login] LOGIN_FAILURE",
+	LOGOUT: "[auth logout] LOGOUT",
+	CLEAR_PROFILE: "[auth logout] CLEAR_PROFILE",
 };

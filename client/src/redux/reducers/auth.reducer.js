@@ -21,11 +21,13 @@ const auth = (state = initState, { type, payload }) => {
 		case AUTH_ACTION_TYPES.REGISTER_FAILURE:
 		case AUTH_ACTION_TYPES.AUTH_ERROR:
 		case AUTH_ACTION_TYPES.LOGIN_FAILURE:
+		case AUTH_ACTION_TYPES.LOGOUT:
 			return {
 				...state,
 				token: null,
 				isAuthenticated: false,
 				loading: false,
+				user: null,
 			};
 
 		case AUTH_ACTION_TYPES.USER_LOADED:
