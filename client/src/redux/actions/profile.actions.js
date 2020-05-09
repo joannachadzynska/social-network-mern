@@ -17,3 +17,7 @@ export const getCurrentProfile = () => async (dispatch) => {
 		});
 	}
 };
+
+export const clearProfile = () => ({
+	type: PROFILE_ACTION_TYPES.CLEAR_PROFILE,
+});

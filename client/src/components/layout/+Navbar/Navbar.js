@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { logout } from "../../../redux/actions/auth.actions";
+import { clearProfile } from "../../../redux/actions/profile.actions";
 
 const Navbar = () => {
 	const dispatch = useDispatch();
@@ -9,13 +10,22 @@ const Navbar = () => {
 
 	const { isAuthenticated, loading } = auth;
 
-	const handleLogout = () => dispatch(logout());
+	const handleLogout = () => {
+		dispatch(logout());
+		dispatch(clearProfile());
+	};
 
 	const authLinks = (
 		<ul>
 			<li>
+				<NavLink to='/Dashboard'>
+					<i className='fas fa-user'></i>{" "}
+					<span className='hide-sm'>Dashboard</span>
+				</NavLink>
+			</li>
+			<li>
 				<a onClick={handleLogout} href='#!'>
-					<i className='fas fa-sign-out-alt'></i>
+					<i className='fas fa-sign-out-alt'></i>{" "}
 					<span className='hide-sm'>Logout</span>
 				</a>
 			</li>

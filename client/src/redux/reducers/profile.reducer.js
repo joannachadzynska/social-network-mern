@@ -24,6 +24,14 @@ const profile = (state = initState, { type, payload }) => {
 				loading: false,
 			};
 
+		case PROFILE_ACTION_TYPES.CLEAR_PROFILE:
+			return {
+				...state,
+				profile: null,
+				repos: [],
+				loading: false,
+			};
+
 		default:
 			return state;
 	}
