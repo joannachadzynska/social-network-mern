@@ -10,7 +10,7 @@ const initState = {
 const auth = (state = initState, { type, payload }) => {
 	switch (type) {
 		case AUTH_ACTION_TYPES.REGISTER_SUCCESS:
-			localStorage.setItem("token", payload.token);
+			// localStorage.setItem("token", payload.token);
 			return {
 				...state,
 				...payload,
@@ -19,12 +19,21 @@ const auth = (state = initState, { type, payload }) => {
 			};
 
 		case AUTH_ACTION_TYPES.REGISTER_FAILURE:
-			localStorage.removeItem("token");
+		case AUTH_ACTION_TYPES.AUTH_ERROR:
+			// localStorage.removeItem("token");
 			return {
 				...state,
 				token: null,
 				isAuthenticated: false,
 				loading: false,
+			};
+
+		case AUTH_ACTION_TYPES.USER_LOADED:
+			return {
+				...state,
+				isAuthenticated: true,
+				loading: false,
+				user: payload,
 			};
 
 		default:
