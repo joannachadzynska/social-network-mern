@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { setAlert } from "../../../redux/actions/alert.actions";
+import { register } from "../../../redux/actions/auth.actions";
 import { InputWithLabel } from "../../shared";
 
 const Register = () => {
@@ -26,27 +27,7 @@ const Register = () => {
 		if (password !== password2) {
 			dispatch(setAlert("Passwords don't match", "danger"));
 		} else {
-			// const newUser = {
-			// 	name,
-			// 	email,
-			// 	password,
-			// };
-
-			// try {
-			// 	const config = {
-			// 		headers: {
-			// 			"Content-Type": "application/json",
-			// 		},
-			// 	};
-
-			// 	const body = JSON.stringify(newUser);
-
-			// 	const res = await axios.post("/api/users", body, config);
-			// 	console.log(res.data);
-			// } catch (error) {
-			// 	console.log(error.response.data);
-			// }
-			console.log("Success");
+			dispatch(register({ name, email, password }));
 		}
 	};
 
