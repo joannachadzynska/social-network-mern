@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, withRouter } from "react-router-dom";
+import { createProfile } from "../../redux/actions/profile.actions";
+import PropTypes from "prop-types";
 
-const CreateProfile = () => {
+const CreateProfile = ({ history }) => {
+	const dispatch = useDispatch();
+
 	const [formData, setFormData] = useState({
 		company: "",
 		website: "",
@@ -42,6 +47,7 @@ const CreateProfile = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		dispatch(createProfile(formData, history));
 	};
 
 	return (
@@ -204,7 +210,7 @@ const CreateProfile = () => {
 					</>
 				)}
 
-				<input type='submit' className='btn btn-primary my-1' />
+				<input type='submit' className='btn btn-primary my-1' value='Submit' />
 				<a className='btn btn-light my-1' href='dashboard.html'>
 					Go Back
 				</a>
@@ -213,4 +219,8 @@ const CreateProfile = () => {
 	);
 };
 
-export default CreateProfile;
+CreateProfile.propTypes = {
+	history: PropTypes.any,
+};
+
+export default withRouter(CreateProfile);
