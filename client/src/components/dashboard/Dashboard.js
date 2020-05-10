@@ -1,23 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getCurrentProfile } from "../../redux/actions/profile.actions";
 
 import Spinner from "../layout/+Spinner";
 import DashboardActions from "./DashboardActions";
+import Experiences from "./Experiences";
+import Education from "./Education";
 
 const Dashboard = () => {
 	const dispatch = useDispatch();
+	const user = useSelector((state) => state.auth.user);
+	const profile = useSelector((state) => state.profile);
+	const { profile: currentProfile, loading } = profile;
+	const setCurrentProfile = () => dispatch(getCurrentProfile());
 
 	useEffect(() => {
-		dispatch(getCurrentProfile());
-	}, []);
-
-	const auth = useSelector((state) => state.auth);
-	const profile = useSelector((state) => state.profile);
-
-	const { user } = auth;
-	const { profile: currentProfile, loading } = profile;
+		if (currentProfile === null) {
+			setCurrentProfile();
+		}
+	}, [setCurrentProfile]);
 
 	return loading && currentProfile === null ? (
 		<Spinner />
@@ -30,6 +32,8 @@ const Dashboard = () => {
 			{currentProfile !== null ? (
 				<>
 					<DashboardActions />
+					<Experiences experiences={profile.profile.experience} />
+					<Education educationList={profile.profile.education} />
 				</>
 			) : (
 				<>
