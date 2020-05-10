@@ -18,4 +18,5 @@ export const PROFILE_ACTION_TYPES = {
 	CLEAR_PROFILE: "[profile] CLEAR_PROFILE",
 	GET_PROFILE: "[profile get] GET_PROFILE",
 	PROFILE_ERROR: "[profile get] PROFILE_ERROR",
+	UPDATE_PROFILE: "[profile update] UPDATE_PROFILE",
 };
