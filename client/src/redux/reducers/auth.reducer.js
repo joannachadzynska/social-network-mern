@@ -1,4 +1,4 @@
-import { AUTH_ACTION_TYPES } from "../actions/types";
+import { AUTH_ACTION_TYPES, PROFILE_ACTION_TYPES } from "../actions/types";
 
 const initState = {
 	token: localStorage.getItem("token"),
@@ -22,6 +22,7 @@ const auth = (state = initState, { type, payload }) => {
 		case AUTH_ACTION_TYPES.AUTH_ERROR:
 		case AUTH_ACTION_TYPES.LOGIN_FAILURE:
 		case AUTH_ACTION_TYPES.LOGOUT:
+		case PROFILE_ACTION_TYPES.ACCOUNT_DELETED:
 			return {
 				...state,
 				token: null,

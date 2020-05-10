@@ -90,6 +90,23 @@ export const addExperience = (formData, history) => async (dispatch) => {
 	}
 };
 
+// Delete experience
+export const deleteExperience = (id) => async (dispatch) => {
+	try {
+		const res = await axios.delete(`/api/profile/experience/${id}`);
+		dispatch({ type: PROFILE_ACTION_TYPES.UPDATE_PROFILE, payload: res.data });
+		dispatch(setAlert("Experience removed", "success"));
+	} catch (error) {
+		dispatch({
+			type: PROFILE_ACTION_TYPES.PROFILE_ERROR,
+			payload: {
+				msg: error.response.statusText,
+				status: error.response.status,
+			},
+		});
+	}
+};
+
 // Add education
 export const addEducation = (formData, history) => async (dispatch) => {
 	try {
@@ -121,3 +138,49 @@ export const addEducation = (formData, history) => async (dispatch) => {
 		});
 	}
 };
+
+// Delete education
+export const deleteEducation = (id) => async (dispatch) => {
+	try {
+		const res = await axios.delete(`/api/profile/education/${id}`);
+		dispatch({ type: PROFILE_ACTION_TYPES.UPDATE_PROFILE, payload: res.data });
+		dispatch(setAlert("Education removed", "success"));
+	} catch (error) {
+		dispatch({
+			type: PROFILE_ACTION_TYPES.PROFILE_ERROR,
+			payload: {
+				msg: error.response.statusText,
+				status: error.response.status,
+			},
+		});
+	}
+};
+
+// Delete account and profile
+export const deleteAccountAndProfile = () => async (dispatch) => {
+	if (window.confirm("Are you sure? This can NOT be undone!")) {
+		try {
+			await axios.delete(`/api/profile`);
+
+			dispatch({
+				type: PROFILE_ACTION_TYPES.CLEAR_PROFILE,
+			});
+
+			dispatch({ type: PROFILE_ACTION_TYPES.ACCOUNT_DELETED });
+
+			dispatch(
+				setAlert("Your account has been permanently deleted", "success")
+			);
+		} catch (error) {
+			dispatch({
+				type: PROFILE_ACTION_TYPES.PROFILE_ERROR,
+				payload: {
+					msg: error.response.statusText,
+					status: error.response.status,
+				},
+			});
+		}
+	}
+};
+
+// @todo - update experience and education
