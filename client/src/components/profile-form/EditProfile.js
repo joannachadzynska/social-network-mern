@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import { createProfile } from "../../redux/actions/profile.actions";
+import {
+	createProfile,
+	getCurrentProfile,
+} from "../../redux/actions/profile.actions";
 import PropTypes from "prop-types";
 
-const CreateProfile = ({ history }) => {
+const EditProfile = ({ history }) => {
 	const dispatch = useDispatch();
+	const profileState = useSelector((state) => state.profile);
+
+	const { profile, loading } = profileState;
 
 	const [formData, setFormData] = useState({
 		company: "",
@@ -23,6 +29,26 @@ const CreateProfile = ({ history }) => {
 	});
 
 	const [displaySocialInputs, toggleSocialInputs] = useState(false);
+
+	useEffect(() => {
+		dispatch(getCurrentProfile());
+
+		setFormData({
+			company: loading || !profile.company ? "" : profile.company,
+			website: loading || !profile.website ? "" : profile.website,
+			location: loading || !profile.location ? "" : profile.location,
+			status: loading || !profile.status ? "" : profile.status,
+			skills: loading || !profile.skills ? "" : profile.skills.join(","),
+			githubusername:
+				loading || !profile.githubusername ? "" : profile.githubusername,
+			bio: loading || !profile.bio ? "" : profile.bio,
+			twitter: loading || !profile.social ? "" : profile.social.twitter,
+			facebook: loading || !profile.social ? "" : profile.social.facebook,
+			linkedin: loading || !profile.social ? "" : profile.social.linkedin,
+			youtube: loading || !profile.social ? "" : profile.social.youtube,
+			instagram: loading || !profile.social ? "" : profile.social.instagram,
+		});
+	}, [loading]);
 
 	const {
 		company,
@@ -47,7 +73,7 @@ const CreateProfile = ({ history }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(createProfile(formData, history));
+		dispatch(createProfile(formData, history, true));
 	};
 
 	return (
@@ -219,8 +245,8 @@ const CreateProfile = ({ history }) => {
 	);
 };
 
-CreateProfile.propTypes = {
+EditProfile.propTypes = {
 	history: PropTypes.any,
 };
 
-export default withRouter(CreateProfile);
+export default withRouter(EditProfile);
