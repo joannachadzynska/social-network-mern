@@ -12,6 +12,7 @@ import { Navbar, Landing, Alert } from "./components/layout";
 import { Login, Register } from "./components/auth";
 import Dashboard from "./components/dashboard";
 import PrivateRoute from "./components/routing";
+import CreateProfile from "./components/profile-form";
 import "./App.css";
 
 const App = () => {
@@ -35,6 +36,12 @@ const App = () => {
 						<Route exact path='/login' component={Login} />
 
 						<PrivateRoute exact path='/dashboard' component={Dashboard} />
+
+						<PrivateRoute
+							exact
+							path='/create-profile'
+							component={CreateProfile}
+						/>
 					</Switch>
 				</section>
 			</Router>
