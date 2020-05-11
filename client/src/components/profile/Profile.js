@@ -8,6 +8,7 @@ import {
 	ProfileAbout,
 	ProfileExperience,
 	ProfileEducation,
+	GithubRepos,
 } from "./components";
 
 const Profile = ({ match }) => {
@@ -70,6 +71,10 @@ const Profile = ({ match }) => {
 								<h4>No education credentials</h4>
 							)}
 						</div>
+
+						{userProfile.githubusername && (
+							<GithubRepos username={userProfile.githubusername} />
+						)}
 					</div>
 				</>
 			)}

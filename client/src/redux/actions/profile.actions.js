@@ -59,16 +59,16 @@ export const getProfileById = (userId) => async (dispatch) => {
 // Get Github repos
 export const getGitHubRepos = (username) => async (dispatch) => {
 	try {
-		const res = await axios.get(`/api/profile/github/${username}}`);
+		const res = await axios.get(`/api/profile/github/${username}`);
 		dispatch({ type: PROFILE_ACTION_TYPES.GET_REPOS, payload: res.data });
 	} catch (error) {
-		dispatch({
-			type: PROFILE_ACTION_TYPES.PROFILE_ERROR,
-			payload: {
-				msg: error.response.statusText,
-				status: error.response.status,
-			},
-		});
+		// dispatch({
+		// 	type: PROFILE_ACTION_TYPES.PROFILE_ERROR,
+		// 	payload: {
+		// 		msg: error.response.statusText,
+		// 		status: error.response.status,
+		// 	},
+		// });
 	}
 };
 
