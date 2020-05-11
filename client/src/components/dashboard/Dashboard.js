@@ -16,13 +16,15 @@ const Dashboard = () => {
 	const user = useSelector((state) => state.auth.user);
 	const profile = useSelector((state) => state.profile);
 	const { profile: currentProfile, loading } = profile;
-	const setCurrentProfile = () => dispatch(getCurrentProfile());
+	const setCurrentProfile = useCallback(() => dispatch(getCurrentProfile()), [
+		dispatch,
+	]);
 
 	useEffect(() => {
 		if (currentProfile === null) {
 			setCurrentProfile();
 		}
-	}, [setCurrentProfile]);
+	}, [setCurrentProfile, currentProfile]);
 
 	return loading && currentProfile === null ? (
 		<Spinner />

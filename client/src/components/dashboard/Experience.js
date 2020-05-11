@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { deleteExperience } from "../../redux/actions/profile.actions";
 
 const Experience = ({ experience }) => {
-	const { company, title, from, to, description, _id } = experience;
+	const { company, title, from, to, _id } = experience;
 	const dispatch = useDispatch();
 
 	return (

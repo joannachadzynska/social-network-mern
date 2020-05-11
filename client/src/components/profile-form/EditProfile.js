@@ -67,7 +67,7 @@ const EditProfile = ({ history }) => {
 				instagram: loading || !profile.social ? "" : profile.social.instagram,
 			});
 		}
-	}, [loading, profile, edit]);
+	}, [loading, profile, edit, dispatch]);
 
 	const handleChange = (e) =>
 		setFormData({
