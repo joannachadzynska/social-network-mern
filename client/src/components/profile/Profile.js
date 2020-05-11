@@ -37,11 +37,39 @@ const Profile = ({ match }) => {
 							</Link>
 						)}
 
-					<div class='profile-grid my-1'>
+					<div className='profile-grid my-1'>
 						<ProfileTop profile={userProfile} />
 						<ProfileAbout profile={userProfile} />
-						<ProfileExperience profile={userProfile} />
-						<ProfileEducation profile={userProfile} />
+						<div className='profile-exp bg-white p-2'>
+							<h2 className='text-primary'>Experience</h2>
+							{userProfile.experience.length > 0 ? (
+								<>
+									{userProfile?.experience.map((experience) => (
+										<ProfileExperience
+											key={experience._id}
+											experience={experience}
+										/>
+									))}
+								</>
+							) : (
+								<h4>No experience credentials</h4>
+							)}
+						</div>
+						<div className='profile-edu bg-white p-2'>
+							<h2 className='text-primary'>Education</h2>
+							{userProfile.education.length > 0 ? (
+								<>
+									{userProfile?.education.map((education) => (
+										<ProfileEducation
+											key={education._id}
+											education={education}
+										/>
+									))}
+								</>
+							) : (
+								<h4>No education credentials</h4>
+							)}
+						</div>
 					</div>
 				</>
 			)}
