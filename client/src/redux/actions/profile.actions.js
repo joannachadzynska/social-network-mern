@@ -18,9 +18,59 @@ export const getCurrentProfile = () => async (dispatch) => {
 	}
 };
 
+// Clear profile
 export const clearProfile = () => ({
 	type: PROFILE_ACTION_TYPES.CLEAR_PROFILE,
 });
+
+// Get all profiles
+export const getProfiles = () => async (dispatch) => {
+	dispatch(clearProfile());
+	try {
+		const res = await axios.get("/api/profile");
+		dispatch({ type: PROFILE_ACTION_TYPES.GET_PROFILES, payload: res.data });
+	} catch (error) {
+		dispatch({
+			type: PROFILE_ACTION_TYPES.PROFILE_ERROR,
+			payload: {
+				msg: error.response.statusText,
+				status: error.response.status,
+			},
+		});
+	}
+};
+
+// Get profile by id
+export const getProfileById = (userId) => async (dispatch) => {
+	try {
+		const res = await axios.get(`/api/profile/${userId}`);
+		dispatch({ type: PROFILE_ACTION_TYPES.GET_PROFILE, payload: res.data });
+	} catch (error) {
+		dispatch({
+			type: PROFILE_ACTION_TYPES.PROFILE_ERROR,
+			payload: {
+				msg: error.response.statusText,
+				status: error.response.status,
+			},
+		});
+	}
+};
+
+// Get Github repos
+export const getGitHubRepos = (username) => async (dispatch) => {
+	try {
+		const res = await axios.get(`/api/profile/github/${username}}`);
+		dispatch({ type: PROFILE_ACTION_TYPES.GET_REPOS, payload: res.data });
+	} catch (error) {
+		dispatch({
+			type: PROFILE_ACTION_TYPES.PROFILE_ERROR,
+			payload: {
+				msg: error.response.statusText,
+				status: error.response.status,
+			},
+		});
+	}
+};
 
 // Create or update profile
 export const createProfile = (formData, history, edit = false) => async (
@@ -162,9 +212,7 @@ export const deleteAccountAndProfile = () => async (dispatch) => {
 		try {
 			await axios.delete(`/api/profile`);
 
-			dispatch({
-				type: PROFILE_ACTION_TYPES.CLEAR_PROFILE,
-			});
+			dispatch(clearProfile());
 
 			dispatch({ type: PROFILE_ACTION_TYPES.ACCOUNT_DELETED });
 

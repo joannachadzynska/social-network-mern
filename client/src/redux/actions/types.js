@@ -17,7 +17,9 @@ export const AUTH_ACTION_TYPES = {
 export const PROFILE_ACTION_TYPES = {
 	CLEAR_PROFILE: "[profile] CLEAR_PROFILE",
 	GET_PROFILE: "[profile get] GET_PROFILE",
+	GET_PROFILES: "[profile get] GET_PROFILES",
 	PROFILE_ERROR: "[profile get] PROFILE_ERROR",
 	UPDATE_PROFILE: "[profile update] UPDATE_PROFILE",
 	ACCOUNT_DELETED: "[profile delete] ACCOUNT_DELETED",
+	GET_REPOS: "[profile github repos] GET_REPOS",
 };

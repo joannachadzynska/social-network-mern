@@ -33,6 +33,20 @@ const profile = (state = initState, { type, payload }) => {
 				loading: false,
 			};
 
+		case PROFILE_ACTION_TYPES.GET_PROFILES:
+			return {
+				...state,
+				profiles: payload,
+				loading: false,
+			};
+
+		case PROFILE_ACTION_TYPES.GET_REPOS:
+			return {
+				...state,
+				repos: payload,
+				loading: false,
+			};
+
 		default:
 			return state;
 	}
