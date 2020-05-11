@@ -13,6 +13,7 @@ import { Login, Register } from "./components/auth";
 import Dashboard from "./components/dashboard";
 import PrivateRoute from "./components/routing";
 import Profiles from "./components/profiles";
+import Profile from "./components/profile";
 import {
 	CreateProfile,
 	EditProfile,
@@ -38,21 +39,17 @@ const App = () => {
 					<Alert />
 					<Switch>
 						<Route exact path='/register' component={Register} />
-
 						<Route exact path='/login' component={Login} />
-
 						<Route exact path='/profiles' component={Profiles} />
+						<Route exact path='/profile/:id' component={Profile} />
 
 						<PrivateRoute exact path='/dashboard' component={Dashboard} />
-
 						<PrivateRoute
 							exact
 							path='/create-profile'
 							component={CreateProfile}
 						/>
-
 						<PrivateRoute exact path='/edit-profile' component={EditProfile} />
-
 						<PrivateRoute
 							exact
 							path='/add-experience'
