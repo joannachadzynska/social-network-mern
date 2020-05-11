@@ -12,6 +12,7 @@ import { Navbar, Landing, Alert } from "./components/layout";
 import { Login, Register } from "./components/auth";
 import Dashboard from "./components/dashboard";
 import PrivateRoute from "./components/routing";
+import Profiles from "./components/profiles";
 import {
 	CreateProfile,
 	EditProfile,
@@ -40,6 +41,8 @@ const App = () => {
 
 						<Route exact path='/login' component={Login} />
 
+						<Route exact path='/profiles' component={Profiles} />
+
 						<PrivateRoute exact path='/dashboard' component={Dashboard} />
 
 						<PrivateRoute
@@ -49,11 +52,13 @@ const App = () => {
 						/>
 
 						<PrivateRoute exact path='/edit-profile' component={EditProfile} />
+
 						<PrivateRoute
 							exact
 							path='/add-experience'
 							component={AddExperience}
 						/>
+
 						<PrivateRoute
 							exact
 							path='/add-education'

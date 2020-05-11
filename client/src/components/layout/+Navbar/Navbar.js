@@ -18,6 +18,9 @@ const Navbar = () => {
 	const authLinks = (
 		<ul>
 			<li>
+				<NavLink to='/profiles'>Developers</NavLink>
+			</li>
+			<li>
 				<NavLink to='/Dashboard'>
 					<i className='fas fa-user'></i>{" "}
 					<span className='hide-sm'>Dashboard</span>
@@ -35,7 +38,7 @@ const Navbar = () => {
 	const guestLinks = (
 		<ul>
 			<li>
-				<NavLink to='#!'>Developers</NavLink>
+				<NavLink to='/profiles'>Developers</NavLink>
 			</li>
 			<li>
 				<NavLink to='/register'>Register</NavLink>
