@@ -21,6 +21,9 @@ const Navbar = () => {
 				<NavLink to='/profiles'>Developers</NavLink>
 			</li>
 			<li>
+				<NavLink to='/posts'>Posts</NavLink>
+			</li>
+			<li>
 				<NavLink to='/Dashboard'>
 					<i className='fas fa-user'></i>{" "}
 					<span className='hide-sm'>Dashboard</span>

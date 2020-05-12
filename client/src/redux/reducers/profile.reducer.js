@@ -23,6 +23,7 @@ const profile = (state = initState, { type, payload }) => {
 				...state,
 				error: payload,
 				loading: false,
+				profile: null,
 			};
 
 		case PROFILE_ACTION_TYPES.CLEAR_PROFILE:

@@ -2,12 +2,18 @@ import axios from "axios";
 import { setAlert } from "./alert.actions";
 import { PROFILE_ACTION_TYPES } from "./types";
 
+// Clear profile
+export const clearProfile = () => ({
+	type: PROFILE_ACTION_TYPES.CLEAR_PROFILE,
+});
+
 // Get current users profile
 export const getCurrentProfile = () => async (dispatch) => {
 	try {
 		const res = await axios.get("/api/profile/me");
 		dispatch({ type: PROFILE_ACTION_TYPES.GET_PROFILE, payload: res.data });
 	} catch (error) {
+		dispatch(clearProfile());
 		dispatch({
 			type: PROFILE_ACTION_TYPES.PROFILE_ERROR,
 			payload: {
@@ -17,11 +23,6 @@ export const getCurrentProfile = () => async (dispatch) => {
 		});
 	}
 };
-
-// Clear profile
-export const clearProfile = () => ({
-	type: PROFILE_ACTION_TYPES.CLEAR_PROFILE,
-});
 
 // Get all profiles
 export const getProfiles = () => async (dispatch) => {

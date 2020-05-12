@@ -23,3 +23,8 @@ export const PROFILE_ACTION_TYPES = {
 	ACCOUNT_DELETED: "[profile delete] ACCOUNT_DELETED",
 	GET_REPOS: "[profile github repos] GET_REPOS",
 };
+
+export const POST_ACTION_TYPES = {
+	GET_POSTS: "[post] GET_POSTS",
+	POST_ERROR: "[post] POST_ERROR",
+};
