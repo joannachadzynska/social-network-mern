@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPosts } from "../../redux/actions/post.actions";
 import { Spinner } from "../layout";
@@ -7,11 +7,15 @@ import PostItem from "./PostItem";
 const Posts = () => {
 	const dispatch = useDispatch();
 	const post = useSelector((state) => state.post);
-	const { posts, loading } = post;
+	const { posts, loading, error } = post;
+
+	const getPosts = useCallback(() => {
+		dispatch(getAllPosts());
+	}, [dispatch]);
 
 	useEffect(() => {
-		dispatch(getAllPosts());
-	}, [dispatch, getAllPosts]);
+		getPosts();
+	}, [getPosts]);
 
 	return loading ? (
 		<Spinner />
