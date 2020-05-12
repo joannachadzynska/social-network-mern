@@ -7,7 +7,7 @@ import PostItem from "./PostItem";
 const Posts = () => {
 	const dispatch = useDispatch();
 	const post = useSelector((state) => state.post);
-	const { posts, loading, error } = post;
+	const { posts, loading } = post;
 
 	const getPosts = useCallback(() => {
 		dispatch(getAllPosts());
