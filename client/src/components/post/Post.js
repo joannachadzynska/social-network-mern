@@ -14,7 +14,7 @@ const Post = ({ match }) => {
 
 	useEffect(() => {
 		dispatch(getPost(match.params.id));
-	}, [dispatch, getPost]);
+	}, [dispatch, match.params.id]);
 
 	return loading || post === null ? (
 		<Spinner />

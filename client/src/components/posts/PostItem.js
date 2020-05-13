@@ -70,4 +70,9 @@ PostItem.defaultProps = {
 	showActions: true,
 };
 
+PostItem.propTypes = {
+	post: PropTypes.object.isRequired,
+	showActions: PropTypes.bool,
+};
+
 export default PostItem;

@@ -1,32 +1,50 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
 import {
 	createProfile,
 	getCurrentProfile,
 } from "../../redux/actions/profile.actions";
-import PropTypes from "prop-types";
 
-const EditProfile = ({ history }) => {
+const initialState = {
+	company: "",
+	website: "",
+	location: "",
+	status: "",
+	skills: "",
+	githubusername: "",
+	bio: "",
+	twitter: "",
+	facebook: "",
+	linkedin: "",
+	youtube: "",
+	instagram: "",
+};
+
+const ProfileForm = ({ history }) => {
+	const profiles = useSelector((state) => state.profile);
+	const { profile, loading } = profiles;
 	const dispatch = useDispatch();
-	const profileState = useSelector((state) => state.profile);
 
-	const { profile, loading } = profileState;
+	const [formData, setFormData] = useState(initialState);
 
-	const [formData, setFormData] = useState({
-		company: "",
-		website: "",
-		location: "",
-		status: "",
-		skills: "",
-		githubusername: "",
-		bio: "",
-		twitter: "",
-		facebook: "",
-		linkedin: "",
-		youtube: "",
-		instagram: "",
-	});
+	const [displaySocialInputs, toggleSocialInputs] = useState(false);
+
+	useEffect(() => {
+		if (!profile) dispatch(getCurrentProfile());
+		if (!loading && profile) {
+			const profileData = { ...initialState };
+			for (const key in profile) {
+				if (key in profileData) profileData[key] = profile[key];
+			}
+			for (const key in profile.social) {
+				if (key in profileData) profileData[key] = profile.social[key];
+			}
+			if (Array.isArray(profileData.skills))
+				profileData.skills = profileData.skills.join(", ");
+			setFormData(profileData);
+		}
+	}, [dispatch, loading, profile]);
 
 	const {
 		company,
@@ -43,55 +61,26 @@ const EditProfile = ({ history }) => {
 		instagram,
 	} = formData;
 
-	const [displaySocialInputs, toggleSocialInputs] = useState(false);
+	const onChange = (e) =>
+		setFormData({ ...formData, [e.target.name]: e.target.value });
 
-	const edit = history.location.pathname.includes("edit");
-
-	useEffect(() => {
-		dispatch(getCurrentProfile());
-
-		if (edit) {
-			setFormData({
-				company: loading || !profile.company ? "" : profile.company,
-				website: loading || !profile.website ? "" : profile.website,
-				location: loading || !profile.location ? "" : profile.location,
-				status: loading || !profile.status ? "" : profile.status,
-				skills: loading || !profile.skills ? "" : profile.skills.join(","),
-				githubusername:
-					loading || !profile.githubusername ? "" : profile.githubusername,
-				bio: loading || !profile.bio ? "" : profile.bio,
-				twitter: loading || !profile.social ? "" : profile.social.twitter,
-				facebook: loading || !profile.social ? "" : profile.social.facebook,
-				linkedin: loading || !profile.social ? "" : profile.social.linkedin,
-				youtube: loading || !profile.social ? "" : profile.social.youtube,
-				instagram: loading || !profile.social ? "" : profile.social.instagram,
-			});
-		}
-	}, [loading, profile, edit, dispatch]);
-
-	const handleChange = (e) =>
-		setFormData({
-			...formData,
-			[e.target.name]: e.target.value,
-		});
-
-	const handleSubmit = (e) => {
+	const onSubmit = (e) => {
 		e.preventDefault();
-		dispatch(createProfile(formData, history, true));
+		dispatch(createProfile(formData, history, profile ? true : false));
+		setFormData(initialState);
 	};
 
 	return (
 		<>
-			<h1 className='large text-primary'>Create Your Profile</h1>
+			<h1 className='large text-primary'>Edit Your Profile</h1>
 			<p className='lead'>
-				<i className='fas fa-user'></i> Let's get some information to make your
-				profile stand out
+				<i className='fas fa-user' /> Add some changes to your profile
 			</p>
 			<small>* = required field</small>
-			<form className='form' onSubmit={handleSubmit}>
+			<form className='form' onSubmit={onSubmit}>
 				<div className='form-group'>
-					<select name='status' value={status} onChange={handleChange}>
-						<option value='0'>* Select Professional Status</option>
+					<select name='status' value={status} onChange={onChange}>
+						<option>* Select Professional Status</option>
 						<option value='Developer'>Developer</option>
 						<option value='Junior Developer'>Junior Developer</option>
 						<option value='Senior Developer'>Senior Developer</option>
@@ -111,7 +100,7 @@ const EditProfile = ({ history }) => {
 						placeholder='Company'
 						name='company'
 						value={company}
-						onChange={handleChange}
+						onChange={onChange}
 					/>
 					<small className='form-text'>
 						Could be your own company or one you work for
@@ -123,7 +112,7 @@ const EditProfile = ({ history }) => {
 						placeholder='Website'
 						name='website'
 						value={website}
-						onChange={handleChange}
+						onChange={onChange}
 					/>
 					<small className='form-text'>
 						Could be your own or a company website
@@ -135,7 +124,7 @@ const EditProfile = ({ history }) => {
 						placeholder='Location'
 						name='location'
 						value={location}
-						onChange={handleChange}
+						onChange={onChange}
 					/>
 					<small className='form-text'>
 						City & state suggested (eg. Boston, MA)
@@ -147,7 +136,7 @@ const EditProfile = ({ history }) => {
 						placeholder='* Skills'
 						name='skills'
 						value={skills}
-						onChange={handleChange}
+						onChange={onChange}
 					/>
 					<small className='form-text'>
 						Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)
@@ -159,7 +148,7 @@ const EditProfile = ({ history }) => {
 						placeholder='Github Username'
 						name='githubusername'
 						value={githubusername}
-						onChange={handleChange}
+						onChange={onChange}
 					/>
 					<small className='form-text'>
 						If you want your latest repos and a Github link, include your
@@ -171,7 +160,8 @@ const EditProfile = ({ history }) => {
 						placeholder='A short bio of yourself'
 						name='bio'
 						value={bio}
-						onChange={handleChange}></textarea>
+						onChange={onChange}
+					/>
 					<small className='form-text'>Tell us a little about yourself</small>
 				</div>
 
@@ -188,59 +178,63 @@ const EditProfile = ({ history }) => {
 				{displaySocialInputs && (
 					<>
 						<div className='form-group social-input'>
-							<i className='fab fa-twitter fa-2x'></i>
+							<i className='fab fa-twitter fa-2x' />
 							<input
 								type='text'
 								placeholder='Twitter URL'
 								name='twitter'
 								value={twitter}
-								onChange={handleChange}
+								onChange={onChange}
 							/>
 						</div>
+
 						<div className='form-group social-input'>
-							<i className='fab fa-facebook fa-2x'></i>
+							<i className='fab fa-facebook fa-2x' />
 							<input
 								type='text'
 								placeholder='Facebook URL'
 								name='facebook'
 								value={facebook}
-								onChange={handleChange}
+								onChange={onChange}
 							/>
 						</div>
+
 						<div className='form-group social-input'>
-							<i className='fab fa-youtube fa-2x'></i>
+							<i className='fab fa-youtube fa-2x' />
 							<input
 								type='text'
 								placeholder='YouTube URL'
 								name='youtube'
 								value={youtube}
-								onChange={handleChange}
+								onChange={onChange}
 							/>
 						</div>
+
 						<div className='form-group social-input'>
-							<i className='fab fa-linkedin fa-2x'></i>
+							<i className='fab fa-linkedin fa-2x' />
 							<input
 								type='text'
 								placeholder='Linkedin URL'
 								name='linkedin'
 								value={linkedin}
-								onChange={handleChange}
+								onChange={onChange}
 							/>
 						</div>
+
 						<div className='form-group social-input'>
-							<i className='fab fa-instagram fa-2x'></i>
+							<i className='fab fa-instagram fa-2x' />
 							<input
 								type='text'
 								placeholder='Instagram URL'
 								name='instagram'
 								value={instagram}
-								onChange={handleChange}
+								onChange={onChange}
 							/>
 						</div>
 					</>
 				)}
 
-				<input type='submit' className='btn btn-primary my-1' value='Submit' />
+				<input type='submit' className='btn btn-primary my-1' />
 				<Link className='btn btn-light my-1' to='/dashboard'>
 					Go Back
 				</Link>
@@ -249,8 +243,4 @@ const EditProfile = ({ history }) => {
 	);
 };
 
-EditProfile.propTypes = {
-	history: PropTypes.any,
-};
-
-export default withRouter(EditProfile);
+export default ProfileForm;
