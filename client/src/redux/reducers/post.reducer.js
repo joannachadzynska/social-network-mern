@@ -53,6 +53,25 @@ const post = (state = initState, { type, payload }) => {
 				post: payload,
 			};
 
+		case POST_ACTION_TYPES.ADD_COMMENT:
+			return {
+				...state,
+				loading: false,
+				post: { ...state.post, comments: payload },
+			};
+
+		case POST_ACTION_TYPES.REMOVE_COMMENT:
+			return {
+				...state,
+				loading: false,
+				post: {
+					...state.post,
+					comments: state.post.comments.filter(
+						(comment) => comment._id !== payload
+					),
+				},
+			};
+
 		default:
 			return state;
 	}

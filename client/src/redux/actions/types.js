@@ -31,4 +31,6 @@ export const POST_ACTION_TYPES = {
 	DELETE_POST: "[post] DELETE_POST",
 	ADD_POST: "[post] ADD_POST",
 	GET_POST: "[post] GET_POST",
+	ADD_COMMENT: "[post comment] ADD_COMMENT",
+	REMOVE_COMMENT: "[post comment] REMOVE_COMMENT",
 };
