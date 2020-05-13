@@ -25,6 +25,14 @@ const Comment = ({
 				<p className='post-date'>
 					Posted on <Moment form='YYYY/MM/DD'>{date}</Moment>
 				</p>
+				{!auth.loading && user === auth.user._id && (
+					<button
+						type='button'
+						className='btn btn-danger'
+						onClick={(e) => dispatch(deleteComment(postId, _id))}>
+						<i className='fas fa-times'></i>
+					</button>
+				)}
 			</div>
 		</div>
 	);
