@@ -46,6 +46,13 @@ const post = (state = initState, { type, payload }) => {
 				loading: false,
 			};
 
+		case POST_ACTION_TYPES.GET_POST:
+			return {
+				...state,
+				loading: false,
+				post: payload,
+			};
+
 		default:
 			return state;
 	}

@@ -30,4 +30,5 @@ export const POST_ACTION_TYPES = {
 	UPDATE_LIKES: "[post likes] UPDATE_LIKES",
 	DELETE_POST: "[post] DELETE_POST",
 	ADD_POST: "[post] ADD_POST",
+	GET_POST: "[post] GET_POST",
 };

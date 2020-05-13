@@ -15,6 +15,7 @@ import PrivateRoute from "./components/routing";
 import Profiles from "./components/profiles";
 import Profile from "./components/profile";
 import Posts from "./components/posts";
+import Post from "./components/post";
 import {
 	CreateProfile,
 	EditProfile,
@@ -63,6 +64,7 @@ const App = () => {
 							component={AddEducation}
 						/>
 						<PrivateRoute exact path='/posts' component={Posts} />
+						<PrivateRoute exact path='/posts/:id' component={Post} />
 					</Switch>
 				</section>
 			</Router>
