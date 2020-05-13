@@ -32,6 +32,13 @@ const post = (state = initState, { type, payload }) => {
 				),
 			};
 
+		case POST_ACTION_TYPES.DELETE_POST:
+			return {
+				...state,
+				posts: state.posts.filter((post) => post._id !== payload),
+				loading: false,
+			};
+
 		default:
 			return state;
 	}
