@@ -29,6 +29,15 @@ const AddExperience = ({ history }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(addExperience(formData, history));
+		setFormData({
+			company: "",
+			title: "",
+			location: "",
+			from: "",
+			to: "",
+			current: false,
+			description: "",
+		});
 	};
 	return (
 		<>

@@ -36,6 +36,15 @@ const AddEducation = ({ history }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(addEducation(formData, history));
+		setFormData({
+			school: "",
+			degree: "",
+			fieldofstudy: "",
+			from: "",
+			to: "",
+			current: false,
+			description: "",
+		});
 	};
 
 	return (

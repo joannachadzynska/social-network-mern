@@ -25,6 +25,10 @@ const Login = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(login(email, password));
+		setFormData({
+			email: "",
+			password: "",
+		});
 	};
 
 	// Redirect if logged in
