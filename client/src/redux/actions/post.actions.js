@@ -55,13 +55,38 @@ export const removeLike = (id) => async (dispatch) => {
 // Delete post
 export const deletePost = (id) => async (dispatch) => {
 	try {
-		const res = await axios.delete(`/api/posts/${id}`);
+		await axios.delete(`/api/posts/${id}`);
 
 		dispatch({
 			type: POST_ACTION_TYPES.DELETE_POST,
 			payload: id,
 		});
-		dispatch(setAlert("Post remove", "success"));
+		dispatch(setAlert("Post removed", "success"));
+	} catch (err) {
+		dispatch({
+			type: POST_ACTION_TYPES.POST_ERROR,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		});
+	}
+};
+
+// Add post
+export const addPost = (formData) => async (dispatch) => {
+	const config = {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	};
+
+	try {
+		const res = await axios.post("/api/posts", formData, config);
+
+		dispatch({
+			type: POST_ACTION_TYPES.ADD_POST,
+			payload: res.data,
+		});
+
+		dispatch(setAlert("Post created", "success"));
 	} catch (err) {
 		dispatch({
 			type: POST_ACTION_TYPES.POST_ERROR,

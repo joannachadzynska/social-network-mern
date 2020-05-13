@@ -32,6 +32,13 @@ const post = (state = initState, { type, payload }) => {
 				),
 			};
 
+		case POST_ACTION_TYPES.ADD_POST:
+			return {
+				...state,
+				loading: false,
+				posts: [payload, ...state.posts],
+			};
+
 		case POST_ACTION_TYPES.DELETE_POST:
 			return {
 				...state,
