@@ -1,0 +1,6 @@
+{
+	"mongoURI": "mongodb+srv://asia123:asia123@socialdevconnector-kbf20.mongodb.net/test?retryWrites=true&w=majority",
+	"jwtSecret": "mysecrettoken",
+	"githubClientId": "6ad9b381a0adf6c0f211",
+	"githubClientSecret": "ff5ea370d7c6e1322d82174a5f6b5505d71c3b96"
+}
